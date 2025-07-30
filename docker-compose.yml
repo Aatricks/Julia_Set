@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  julia-set-rust:
+    build:
+      context: ./rust
+      dockerfile: Dockerfile
+    image: julia-set-rust:latest
+    container_name: julia-set-generator
+    volumes:
+      - ./output:/app/output
+    environment:
+      - RUST_LOG=info
+    # Optional: you can override default parameters here
+    # command: ["--width", "1920", "--height", "1080", "--iterations", "500"]

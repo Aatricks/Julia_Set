@@ -1,0 +1,35 @@
+# Ignore everything except the rust directory when building
+*
+!rust/
+rust/target/
+rust/Cargo.lock
+
+# Keep the rust directory structure but ignore build artifacts
+rust/target
+rust/Cargo.lock
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Other language implementations
+python/
+c/
+
+# Output and temporary files
+output/
+*.png
+*.gif
+*.jpg
+*.jpeg

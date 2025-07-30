@@ -316,13 +316,13 @@ class JuliaSetUI(QMainWindow):
         main_widget = QWidget()
         main_layout = QHBoxLayout()
         main_widget.setLayout(main_layout)
-        self.setCentralWidget(main_widget)
-
-        # Left panel for controls
+        self.setCentralWidget(main_widget)  # Left panel for controls
         control_panel = QWidget()
         control_layout = QVBoxLayout()
         control_panel.setLayout(control_layout)
-        control_panel.setFixedWidth(350)
+        # Set minimum width instead of fixed width to allow scaling
+        control_panel.setMinimumWidth(350)
+        control_panel.setMaximumWidth(600)
 
         # Right panel for fractal display
         self.display_widget = pg.GraphicsLayoutWidget()
@@ -331,9 +331,9 @@ class JuliaSetUI(QMainWindow):
         self.img_item = pg.ImageItem(border="w")
         self.view_box.addItem(self.img_item)
 
-        # Add panels to main layout
-        main_layout.addWidget(control_panel)
-        main_layout.addWidget(self.display_widget)
+        # Add panels to main layout with stretch factors for proportional scaling
+        main_layout.addWidget(control_panel, 1)  # Control panel gets 1 part
+        main_layout.addWidget(self.display_widget, 2)  # Display gets 2 parts
 
         # Complex number parameters
         c_group = QGroupBox("Complex Parameter c")
@@ -341,28 +341,28 @@ class JuliaSetUI(QMainWindow):
 
         # C-real parameter slider
         c_layout.addWidget(QLabel("Real part:"), 0, 0)
-        self.c_real_label = QLabel(f"{DEFAULT_C[0]:.3f}")
+        self.c_real_label = QLabel(f"{DEFAULT_C[0]:.5f}")
         c_layout.addWidget(self.c_real_label, 0, 2)
         self.c_real_slider = QSlider(Qt.Horizontal)
-        self.c_real_slider.setRange(-200, 200)
-        self.c_real_slider.setValue(int(DEFAULT_C[0] * 200))
+        self.c_real_slider.setRange(-2000000, 2000000)
+        self.c_real_slider.setValue(int(DEFAULT_C[0] * 2000000))
         self.c_real_slider.valueChanged.connect(
             lambda: self.update_param_and_recalculate(
-                "c_real", self.c_real_slider.value() / 200.0
+                "c_real", self.c_real_slider.value() / 2000000.0
             )
         )
         c_layout.addWidget(self.c_real_slider, 1, 0, 1, 3)
 
         # C-imaginary parameter slider
         c_layout.addWidget(QLabel("Imaginary part:"), 2, 0)
-        self.c_imag_label = QLabel(f"{DEFAULT_C[1]:.3f}")
+        self.c_imag_label = QLabel(f"{DEFAULT_C[1]:.5f}")
         c_layout.addWidget(self.c_imag_label, 2, 2)
         self.c_imag_slider = QSlider(Qt.Horizontal)
-        self.c_imag_slider.setRange(-200, 200)
-        self.c_imag_slider.setValue(int(DEFAULT_C[1] * 200))
+        self.c_imag_slider.setRange(-2000000, 2000000)
+        self.c_imag_slider.setValue(int(DEFAULT_C[1] * 2000000))
         self.c_imag_slider.valueChanged.connect(
             lambda: self.update_param_and_recalculate(
-                "c_imag", self.c_imag_slider.value() / 200.0
+                "c_imag", self.c_imag_slider.value() / 2000000.0
             )
         )
         c_layout.addWidget(self.c_imag_slider, 3, 0, 1, 3)
@@ -454,7 +454,7 @@ class JuliaSetUI(QMainWindow):
         display_layout.addWidget(QLabel("Resolution:"), 0, 0)
         self.res_combobox = QComboBox()
         self.res_combobox.addItems(["100x100", "500x500", "1000x1000", "2000x2000"])
-        self.res_combobox.setCurrentIndex(1)  # Default to 500x500
+        self.res_combobox.setCurrentIndex(0)  # Default to 100x100
         self.res_combobox.currentIndexChanged.connect(self.update_resolution)
         display_layout.addWidget(self.res_combobox, 0, 1, 1, 2)
 

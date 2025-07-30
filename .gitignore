@@ -1,0 +1,40 @@
+# Rust
+rust/target/
+rust/Cargo.lock
+
+# Python
+python/__pycache__/
+python/*.pyc
+python/*.pyo
+python/*.pyd
+python/.Python
+python/env/
+python/venv/
+python/.venv/
+python/.env
+
+# C
+c/*.o
+c/julia
+c/julia.exe
+
+# Output files
+output/*.png
+output/*.gif
+output/*.jpg
+output/*.jpeg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log

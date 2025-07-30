@@ -1,16 +1,47 @@
 # Julia Set Explorer
 
-Python fractal generator based on the Julia set with both command-line and graphical user interfaces.
+Multi-language fractal generator based on the Julia set with Python GUI, command-line interfaces, and Docker support.
+
+## Project Structure
+
+```
+Julia_Set/
+├── rust/                   # Rust implementation (Docker-ready)
+│   ├── src/
+│   │   └── main.rs        # Main Rust source
+│   ├── Cargo.toml         # Rust dependencies
+│   └── Dockerfile         # Docker configuration
+├── python/                # Python implementations
+│   ├── julia.py          # Command-line interface
+│   ├── julia_ui.py       # Interactive GUI
+│   ├── requirements.txt  # Python dependencies
+│   └── run_julia_ui.bat  # Windows launcher
+├── c/                     # C implementation
+│   └── julia.c
+├── output/                # Generated images
+├── docker-compose.yml     # Docker orchestration
+├── run_docker.bat        # Windows Docker runner
+├── run_docker.sh         # Unix Docker runner
+└── README.md
+```
 
 ## Overview
 
-This project provides tools to generate, explore, and animate beautiful Julia set fractals. It features:
+This project provides tools to generate, explore, and animate beautiful Julia set fractals in multiple programming languages:
 
-- High-performance calculation using Numba JIT compilation
-- Interactive GUI for real-time parameter adjustments
+- **Rust**: High-performance, Docker-ready implementation with command-line arguments
+- **Python**: Interactive GUI and command-line interface with advanced features
+- **C**: Lightweight implementation for educational purposes
+
+Features:
+- High-performance calculation using optimized algorithms
+- Interactive GUI for real-time parameter adjustments (Python)
 - Command-line interface for batch processing
+- Docker containerization for easy deployment
 - Support for creating high-resolution images
-- Animation capabilities for creating GIFs
+- Animation capabilities for creating GIFs (Python)
+- Parallel processing for maximum performance
+
 
 ## How It Works
 
@@ -56,32 +87,46 @@ The generator can create two types of animated GIFs:
 2. **Parameter Animation**: Shows how changes to the complex constant c affect the fractal
 ![Parameter Animation](https://github.com/Aatrick/Julia_Set/assets/113598245/9538663b-d8b7-49dd-89c2-0f312d83af40)
 
-## Installation
+## Installation and Usage
 
-1. Clone this repository:
-```
-git clone https://github.com/Aatrick/Julia_Set.git
+### Docker (Recommended)
+See the Quick Start section above.
+
+### Rust (Native)
+```bash
+cd rust
+cargo build --release
+./target/release/julia_set --help
 ```
 
-2. Install the required dependencies:
+### Python
+1. Navigate to the python directory:
+```bash
+cd python
 ```
+
+2. Install dependencies:
+```bash
 pip install -r requirements.txt
 ```
 
-## Usage
-
-### Command-Line Interface
-```
+3. Run the applications:
+```bash
+# Command-line interface
 python julia.py
+
+# Graphical interface
+python julia_ui.py
+
+# Or on Windows
+run_julia_ui.bat
 ```
 
-### Graphical Interface
-```
-python julia_ui.py
-```
-Or run the provided batch file:
-```
-run_julia_ui.bat
+### C
+```bash
+cd c
+gcc -o julia julia.c -lm
+./julia
 ```
 
 ## Performance Notes
